@@ -13,12 +13,14 @@ class ZenPlugin
   enter: () ->
     document.getElementById('logo')?.style?.visibility = 'hidden'
     @game.plugins.disable 'voxel-inventory-hotbar' # TODO: add explicit method to toggle visibility instead of disabling entire plugin?
+    @game.plugins.disable 'voxel-voila'
     @getDatgui()?.style?.visibility = 'hidden'
     @zenMode = true
 
   leave: () ->
     document.getElementById('logo')?.style?.visibility = ''
     @game.plugins.enable 'voxel-inventory-hotbar' # TODO: remember state, only re-enable if was enabled first?
+    @game.plugins.enable 'voxel-voila'
     @getDatgui()?.style?.visibility = ''
     @zenMode = false
 

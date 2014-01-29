@@ -28,6 +28,7 @@
         }
       }
       this.game.plugins.disable('voxel-inventory-hotbar');
+      this.game.plugins.disable('voxel-voila');
       if ((_ref2 = this.getDatgui()) != null) {
         if ((_ref3 = _ref2.style) != null) {
           _ref3.visibility = 'hidden';
@@ -44,6 +45,7 @@
         }
       }
       this.game.plugins.enable('voxel-inventory-hotbar');
+      this.game.plugins.enable('voxel-voila');
       if ((_ref2 = this.getDatgui()) != null) {
         if ((_ref3 = _ref2.style) != null) {
           _ref3.visibility = '';
