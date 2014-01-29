@@ -21,34 +21,44 @@
     }
 
     ZenPlugin.prototype.enter = function() {
-      var _ref, _ref1, _ref2, _ref3;
+      var _ref, _ref1, _ref2, _ref3, _ref4, _ref5;
       if ((_ref = document.getElementById('logo')) != null) {
         if ((_ref1 = _ref.style) != null) {
           _ref1.visibility = 'hidden';
         }
       }
-      this.game.plugins.disable('voxel-inventory-hotbar');
-      this.game.plugins.disable('voxel-voila');
-      if ((_ref2 = this.getDatgui()) != null) {
+      if ((_ref2 = document.getElementById('stats')) != null) {
         if ((_ref3 = _ref2.style) != null) {
           _ref3.visibility = 'hidden';
+        }
+      }
+      this.game.plugins.disable('voxel-inventory-hotbar');
+      this.game.plugins.disable('voxel-voila');
+      if ((_ref4 = this.getDatgui()) != null) {
+        if ((_ref5 = _ref4.style) != null) {
+          _ref5.visibility = 'hidden';
         }
       }
       return this.zenMode = true;
     };
 
     ZenPlugin.prototype.leave = function() {
-      var _ref, _ref1, _ref2, _ref3;
+      var _ref, _ref1, _ref2, _ref3, _ref4, _ref5;
       if ((_ref = document.getElementById('logo')) != null) {
         if ((_ref1 = _ref.style) != null) {
           _ref1.visibility = '';
         }
       }
-      this.game.plugins.enable('voxel-inventory-hotbar');
-      this.game.plugins.enable('voxel-voila');
-      if ((_ref2 = this.getDatgui()) != null) {
+      if ((_ref2 = document.getElementById('stats')) != null) {
         if ((_ref3 = _ref2.style) != null) {
           _ref3.visibility = '';
+        }
+      }
+      this.game.plugins.enable('voxel-inventory-hotbar');
+      this.game.plugins.enable('voxel-voila');
+      if ((_ref4 = this.getDatgui()) != null) {
+        if ((_ref5 = _ref4.style) != null) {
+          _ref5.visibility = '';
         }
       }
       return this.zenMode = false;
