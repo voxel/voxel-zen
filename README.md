@@ -1,0 +1,6 @@
+# voxel-zen
+
+## License
+
+MIT
+
