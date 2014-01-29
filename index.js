@@ -27,6 +27,7 @@
           _ref1.visibility = 'hidden';
         }
       }
+      this.game.plugins.disable('voxel-inventory-hotbar');
       return this.zenMode = true;
     };
 
@@ -37,6 +38,7 @@
           _ref1.visibility = '';
         }
       }
+      this.game.plugins.enable('voxel-inventory-hotbar');
       return this.zenMode = false;
     };
 
