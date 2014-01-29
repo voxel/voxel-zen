@@ -13,12 +13,18 @@ class ZenPlugin
   enter: () ->
     document.getElementById('logo')?.style?.visibility = 'hidden'
     @game.plugins.disable 'voxel-inventory-hotbar' # TODO: add explicit method to toggle visibility instead of disabling entire plugin?
+    @getDatgui()?.style?.visibility = 'hidden'
     @zenMode = true
 
   leave: () ->
     document.getElementById('logo')?.style?.visibility = ''
     @game.plugins.enable 'voxel-inventory-hotbar' # TODO: remember state, only re-enable if was enabled first?
+    @getDatgui()?.style?.visibility = ''
     @zenMode = false
+
+  getDatgui: () ->
+    a = document.getElementsByClassName('dg') # TODO: find out how dat.gui handle 'H' hotkey and Close Button, might do more than hiding? (tick listeners)
+    return a[0] if a?
 
   toggle: () ->
     if @zenMode
