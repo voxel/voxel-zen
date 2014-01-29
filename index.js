@@ -6,19 +6,52 @@
     return new ZenPlugin(game, opts);
   };
 
+  module.exports.pluginInfo = {
+    clientOnly: true
+  };
+
   ZenPlugin = (function() {
     function ZenPlugin(game, opts) {
       this.game = game;
       if (this.game.buttons.down == null) {
         throw 'voxel-zen requires "kb-bindings" as game.buttons';
       }
+      this.zenMode = false;
       this.enable();
     }
+
+    ZenPlugin.prototype.enter = function() {
+      var _ref, _ref1;
+      if ((_ref = document.getElementById('logo')) != null) {
+        if ((_ref1 = _ref.style) != null) {
+          _ref1.visibility = 'hidden';
+        }
+      }
+      return this.zenMode = true;
+    };
+
+    ZenPlugin.prototype.leave = function() {
+      var _ref, _ref1;
+      if ((_ref = document.getElementById('logo')) != null) {
+        if ((_ref1 = _ref.style) != null) {
+          _ref1.visibility = '';
+        }
+      }
+      return this.zenMode = false;
+    };
+
+    ZenPlugin.prototype.toggle = function() {
+      if (this.zenMode) {
+        return this.leave();
+      } else {
+        return this.enter();
+      }
+    };
 
     ZenPlugin.prototype.enable = function() {
       return this.game.buttons.down.on('zen', this.down = (function(_this) {
         return function() {
-          return console.log('zen');
+          return _this.toggle();
         };
       })(this));
     };
