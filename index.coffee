@@ -5,7 +5,7 @@ module.exports.pluginInfo =
 
 class ZenPlugin
   constructor: (@game, opts) ->
-    throw 'voxel-zen requires "kb-bindings" as game.buttons' if not @game.buttons.down?
+    throw new Error('voxel-zen requires "kb-bindings" as game.buttons') if not @game.buttons.down?
 
     @zenMode = false
     @enable()

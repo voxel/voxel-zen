@@ -14,7 +14,7 @@
     function ZenPlugin(game, opts) {
       this.game = game;
       if (this.game.buttons.down == null) {
-        throw 'voxel-zen requires "kb-bindings" as game.buttons';
+        throw new Error('voxel-zen requires "kb-bindings" as game.buttons');
       }
       this.zenMode = false;
       this.enable();
