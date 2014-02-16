@@ -34,6 +34,7 @@
       }
       this.game.plugins.disable('voxel-inventory-hotbar');
       this.game.plugins.disable('voxel-voila');
+      this.game.plugins.disable('voxel-health-bar');
       if ((_ref4 = this.getDatgui()) != null) {
         if ((_ref5 = _ref4.style) != null) {
           _ref5.visibility = 'hidden';
@@ -56,6 +57,7 @@
       }
       this.game.plugins.enable('voxel-inventory-hotbar');
       this.game.plugins.enable('voxel-voila');
+      this.game.plugins.enable('voxel-health-bar');
       if ((_ref4 = this.getDatgui()) != null) {
         if ((_ref5 = _ref4.style) != null) {
           _ref5.visibility = '';
