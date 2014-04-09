@@ -7,15 +7,21 @@
   };
 
   module.exports.pluginInfo = {
-    clientOnly: true
+    clientOnly: true,
+    loadAfter: ['voxel-keys']
   };
 
   ZenPlugin = (function() {
     function ZenPlugin(game, opts) {
+      var _ref;
       this.game = game;
-      if (this.game.buttons.down == null) {
-        throw new Error('voxel-zen requires "kb-bindings" as game.buttons');
-      }
+      this.keys = (function() {
+        if ((_ref = this.game.plugins.get('voxel-keys')) != null) {
+          return _ref;
+        } else {
+          throw new Error('voxel-zen requires voxel-keys plugin');
+        }
+      }).call(this);
       this.zenMode = false;
       this.enable();
     }
@@ -83,7 +89,7 @@
     };
 
     ZenPlugin.prototype.enable = function() {
-      return this.game.buttons.down.on('zen', this.down = (function(_this) {
+      return this.keys.down.on('zen', this.down = (function(_this) {
         return function() {
           return _this.toggle();
         };
@@ -91,7 +97,7 @@
     };
 
     ZenPlugin.prototype.disable = function() {
-      return this.game.buttons.down.remove('zen', this.down);
+      return this.keys.down.remove('zen', this.down);
     };
 
     return ZenPlugin;

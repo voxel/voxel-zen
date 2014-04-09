@@ -2,10 +2,11 @@
 module.exports = (game, opts) -> new ZenPlugin game, opts
 module.exports.pluginInfo =
   clientOnly: true
+  loadAfter: ['voxel-keys']
 
 class ZenPlugin
   constructor: (@game, opts) ->
-    throw new Error('voxel-zen requires "kb-bindings" as game.buttons') if not @game.buttons.down?
+    @keys = @game.plugins.get('voxel-keys') ?  throw new Error('voxel-zen requires voxel-keys plugin')
 
     @zenMode = false
     @enable()
@@ -39,9 +40,9 @@ class ZenPlugin
       @enter()
 
   enable: () ->
-    @game.buttons.down.on 'zen', @down = () =>
+    @keys.down.on 'zen', @down = () =>
       @toggle()
 
   disable: () ->
-    @game.buttons.down.remove 'zen', @down
+    @keys.down.remove 'zen', @down
 
