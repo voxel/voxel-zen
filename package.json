@@ -2,14 +2,20 @@
   "name": "voxel-zen",
   "description": "toggle extraneous UI elements (voxel.js plugin)",
   "version": "0.1.0",
+  "main": "zen.coffee",
   "repository": {
     "type": "git",
     "url": "git@github.com:deathcap/voxel-zen.git"
   },
   "keywords": [
-    "voxel"
+    "voxel",
+    "plugin",
+    "clutter",
+    "distraction"
   ],
   "dependencies": {},
-  "peerDependencies": {},
+  "browserify": {
+    "transform": [ "coffeeify" ]
+  },
   "license": "MIT"
 }
