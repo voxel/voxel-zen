@@ -1,48 +1,65 @@
+'use strict';
 
-module.exports = (game, opts) -> new ZenPlugin game, opts
-module.exports.pluginInfo =
-  clientOnly: true
+module.exports = (game, opts) => new ZenPlugin(game, opts);
+module.exports.pluginInfo = {
+  clientOnly: true,
   loadAfter: ['voxel-keys']
+};
 
-class ZenPlugin
-  constructor: (@game, opts) ->
-    @keys = @game.plugins.get('voxel-keys') ?  throw new Error('voxel-zen requires voxel-keys plugin')
+class ZenPlugin {
+  constructor(game, opts) {
+    this.game = game;
+    this.keys = game.plugins.get('voxel-keys');
+    if (!this.keys) throw new Error('voxel-zen requires voxel-keys plugin');
 
-    @zenMode = false
-    @enable()
+    this.zenMode = false;
+    this.enable();
+  }
 
-  enter: () ->
-    document.getElementById('logo')?.style?.visibility = 'hidden'
-    document.getElementById('stats')?.style?.visibility = 'hidden'
-    @game.plugins.disable 'voxel-inventory-hotbar' # TODO: add explicit method to toggle visibility instead of disabling entire plugin?
-    @game.plugins.disable 'voxel-voila'
-    @game.plugins.disable 'voxel-health-bar'
-    @getDatgui()?.style?.visibility = 'hidden'
-    @zenMode = true
+  enter() {
+    if (document.getElementById('logo')) document.getElementById('logo').style.visibility = 'hidden';
+    if (document.getElementById('stats')) document.getElementById('stats').style.visibility = 'hidden';
+    this.game.plugins.disable('voxel-inventory-hotbar'); // TODO: add explicit method to toggle visibility instead of disabling entire plugin?
+    this.game.plugins.disable('voxel-voila');
+    this.game.plugins.disable('voxel-health-bar');
+    if (this.getDatgui()) {
+      this.getDatgui().style.visibility = 'hidden';
+    }
+    this.zenMode = true;
+  }
 
-  leave: () ->
-    document.getElementById('logo')?.style?.visibility = ''
-    document.getElementById('stats')?.style?.visibility = ''
-    @game.plugins.enable 'voxel-inventory-hotbar' # TODO: remember state, only re-enable if was enabled first?
-    @game.plugins.enable 'voxel-voila'
-    @game.plugins.enable 'voxel-health-bar'
-    @getDatgui()?.style?.visibility = ''
-    @zenMode = false
+  leave() {
+    if (document.getElementById('logo')) document.getElementById('logo').style.visibility = '';
+    if (document.getElementById('stats')) document.getElementById('stats').style.visibility = '';
+    this.game.plugins.enable('voxel-inventory-hotbar'); // TODO: remember state, only re-enable if was enabled first?
+    this.game.plugins.enable('voxel-voila');
+    this.game.plugins.enable('voxel-health-bar');
+    if (this.getDatgui()) {
+      this.getDatgui().style.visibility = '';
+    }
+    this.zenMode = false;
+  }
 
-  getDatgui: () ->
-    a = document.getElementsByClassName('dg') # TODO: find out how dat.gui handle 'H' hotkey and Close Button, might do more than hiding? (tick listeners)
-    return a[0] if a?
+  getDatgui() {
+    const a = document.getElementsByClassName('dg'); // TODO: find out how dat.gui handle 'H' hotkey and Close Button, might do more than hiding? (tick listeners)
+    if (a) return a[0];
+  }
 
-  toggle: () ->
-    if @zenMode
-      @leave()
-    else
-      @enter()
+  toggle() {
+    if (this.zenMode) {
+      this.leave();
+    } else {
+      this.enter();
+    }
+  }
 
-  enable: () ->
-    @keys.down.on 'zen', @down = () =>
-      @toggle()
+  enable() {
+    this.keys.down.on('zen', this.down = () => {
+      this.toggle();
+    });
+  }
 
-  disable: () ->
-    @keys.down.remove 'zen', @down
-
+  disable() {
+    this.keys.down.remove('zen', this.down);
+  }
+}
